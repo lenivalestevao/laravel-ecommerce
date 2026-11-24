@@ -1,5 +1,7 @@
 # Laravel Shop
 
+[![Tests](https://github.com/lenivalestevao/laravel-ecommerce/actions/workflows/tests.yml/badge.svg)](https://github.com/lenivalestevao/laravel-ecommerce/actions/workflows/tests.yml)
+
 A free, complete e-commerce starter for **Laravel 13** (PHP 8.3). Download it, run three commands and you have a working online store with a catalog, cart, checkout, customer accounts and an admin panel, in the spirit of OpenCart but on a modern Laravel codebase you can read and change.
 
 ![Preview](docs/preview.svg)
@@ -118,11 +120,11 @@ Each gateway is a small class in `app/Payments` implementing `Gateway`. To add a
 php artisan test
 ```
 
-The suite covers catalog, cart, coupons, checkout, stock, payments (with faked HTTP responses), admin and accounts.
+The suite covers catalog, cart, coupons, checkout, stock, payments (with faked HTTP responses), admin, accounts and the `shop:install` command. GitHub runs it for you on every push (`.github/workflows/tests.yml`).
 
 ## Status and honesty notes
 
-- This project is written for Laravel 13, but the author could **not run `composer install` or the test suite** in the environment where it was written (no network). The code was checked with `php -l` and by cross-checking route and view names. If something fails on your machine, please open an issue with the error.
+- The test suite runs automatically on GitHub Actions for every commit (see the Actions tab), on a clean Laravel 13 install with an in-memory SQLite database. That proves the code works there, but not on your server. If something fails on your machine, please open an issue with the error.
 - The payment gateways are tested with fake HTTP responses only. **Run a real payment in each provider's sandbox before accepting money.** Provider APIs change.
 - PayPal: the customer return URL captures the payment. If you rely on PayPal webhooks, verify their signature before trusting them (see `PayPalGateway::webhook`).
 - Bank transfer instructions are placeholder text in `resources/views/checkout/show.blade.php`. Put your own bank details there.
