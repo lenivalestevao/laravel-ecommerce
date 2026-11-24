@@ -37,6 +37,9 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
+        "setup": [
+            "@php artisan shop:install"
+        ],
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"

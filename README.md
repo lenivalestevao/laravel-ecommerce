@@ -44,11 +44,27 @@ Requirements: PHP 8.3+, Composer, SQLite (or MySQL/PostgreSQL).
 git clone https://github.com/lenivalestevao/laravel-ecommerce.git
 cd laravel-ecommerce
 composer install
-php artisan key:generate
-php artisan migrate --seed
-php artisan storage:link
+php artisan shop:install
 php artisan serve
 ```
+
+`php artisan shop:install` does everything else for you. It is safe to run again, and it never deletes data unless you add `--fresh`:
+
+- creates the `.env` file and the app key
+- creates the database (the SQLite file, or the MySQL/MariaDB database if the server lets it)
+- creates all the tables with the migrations
+- adds demo categories, products and coupons (skipped if the shop already has data)
+- makes sure there is an admin account and links `public/storage`
+
+Options:
+
+| Option | What it does |
+| --- | --- |
+| `--no-seed` | Skip the demo products and coupons, for a clean store |
+| `--fresh` | Drop every table and start over (**deletes all data**) |
+| `--admin-email=you@store.com --admin-password=...` | Create your own admin account |
+
+`composer setup` runs the same command. Prefer the manual way? `php artisan key:generate && php artisan migrate --seed` also works.
 
 Open http://localhost:8000. The seeder creates demo categories, products and two coupons (`WELCOME10`, `SAVE5`).
 
